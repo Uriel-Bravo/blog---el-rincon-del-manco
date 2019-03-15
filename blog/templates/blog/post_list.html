@@ -1,0 +1,56 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('/static/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>El rincon del manco</h1>
+                    <span class="subheading">Un blog para dominarlos a todos</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {% for post in post_list %}
+            <div class="post-preview">
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="" class="img-fluid" style="max-width: 100%; height:auto;" >
+                    {% endif %}
+                    <a href="/post/{{ post.slug }}">
+                        <h2 class="post-title">
+                            {{ post.title }}
+                        </h2>
+                        <h3 class="post-subtitle">
+                            {{ post.subtitle }}
+                        </h3>
+                    </a>
+                <p class="post-meta">Publicado por
+                    <a href="#">{{ post.author }}</a> el {{ post.published_date|date:"d M, Y" }}
+                </p>
+            </div>
+            <hr>
+            {% endfor %}
+            
+            <!-- Pager -->
+            <div class="clearfix">
+                {% if page_obj.has_next %}
+                    <a class="btn btn-secondary float-right" href="?page={{ page_obj.next_page_number }}">Older Posts &rarr;</a>
+                {% endif %}
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-secondary float-left" href="?page={{ page_obj.previous_page_number }}">&larr; Newer Posts</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

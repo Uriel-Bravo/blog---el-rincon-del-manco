@@ -1,0 +1,45 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('/static/img/home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>lista de Drafts</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                {% for post in draft_list %}
+                    <div class="post-preview">
+                            {% if post.image %}
+                            <img src="{{ post.image.url }}" alt="" class="img-fluid" style="max-width: 100%; height:auto;" >
+                            {% endif %}
+                        <a href="/post/{{ post.slug }}">
+                            <h2 class="post-title">
+                                {{ post.title }}
+                            </h2>
+                            <h3 class="post-subtitle">
+                                {{ post.subtitle }}
+                            </h3>
+                        </a>
+                        <p class="post-meta">Creado por
+                            <a href="#">{{ post.author }}</a> el {{ post.created_date|date:"d M, Y" }}
+                        </p>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
