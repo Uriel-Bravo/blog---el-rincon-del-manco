@@ -1,16 +1,16 @@
 from django.db import models
 from django.utils import timezone
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db.models.signals import pre_save
 
 from blog.utils import unique_slug_generator
 
 
 class Post(models.Model):
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=200)
-    category = models.ForeignKey('Category', related_name='categories')
+    category = models.ForeignKey('Category', related_name='categories', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='post_images', null=True, blank=True)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
